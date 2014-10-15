@@ -1,0 +1,38 @@
+apply plugin: 'java'
+apply plugin: 'groovy'
+apply plugin: 'war'
+
+buildscript {
+  repositories {
+    mavenCentral()
+  }
+  dependencies {
+    classpath 'org.akhikhl.gretty:gretty:1.1.4'
+
+  }
+}
+
+apply plugin: 'org.akhikhl.gretty'
+
+sourceCompatibility = 1.7
+version = '1.0'
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  testCompile group: 'junit', name: 'junit', version: '4.11'
+  providedCompile 'javax.servlet:servlet-api:2.5'
+  providedCompile 'javax.servlet:jsp-api:2.0'
+  compile 'org.codehaus.groovy:groovy-all:2.3.3'
+}
+
+gretty {
+  servletContainer = 'jetty8'
+  managedClassReload = true
+  contextPath = 'dummy'
+  jettyEnvXmlFile = "jetty-env.xml"
+  port = 8888
+  servicePort = 8889
+}
